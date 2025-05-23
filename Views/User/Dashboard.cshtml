@@ -1,0 +1,17 @@
+﻿<h2>Your Dashboard</h2>
+<h3>Subscribe to a Plan</h3>
+<form asp-action="Subscribe" method="post">
+    <select name="planId">
+        @foreach (var plan in ViewBag.Plans)
+        {
+            <option value="@plan.Id">@plan.Name - $@plan.Price</option>
+        }
+    </select>
+    <button type="submit">Subscribe</button>
+</form>
+
+<h3>Your Subscriptions</h3>
+@foreach (var sub in ViewBag.Subscriptions)
+{
+    <p>Plan: @sub.PlanId | From: @sub.StartDate to @sub.EndDate</p>
+}
