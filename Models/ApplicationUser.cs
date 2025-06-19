@@ -13,6 +13,7 @@ namespace WebApp.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Email id { get; set; }
+		public int Employee code { get; set; }
 
 
 
