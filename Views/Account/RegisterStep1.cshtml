@@ -1,0 +1,44 @@
+﻿@model RegisterStep1ViewModel
+
+<h2>Step 1: User Info</h2>
+
+<form asp-action="RegisterStep1" method="post">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" type="date" />
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
+
+    <div>
+        <label asp-for="Mobile"></label>
+        <input asp-for="Mobile" />
+        <span asp-validation-for="Mobile"></span>
+    </div>
+
+    <button type="submit">Next</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

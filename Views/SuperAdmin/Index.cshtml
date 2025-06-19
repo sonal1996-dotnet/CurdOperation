@@ -1,0 +1,8 @@
+﻿<h2>Plans</h2>
+<a asp-action="CreatePlan">Add Plan</a>
+<table>
+    @foreach (var plan in Model)
+    {
+        <tr><td>@plan.Name</td><td>@plan.Price</td></tr>
+    }
+</table>

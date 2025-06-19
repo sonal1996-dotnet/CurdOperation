@@ -1,0 +1,77 @@
+﻿@model RegisterStep3ViewModel
+
+<h2>Step 3: Address</h2>
+
+<form asp-action="RegisterStep3" method="post">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div>
+        <label asp-for="Country"></label>
+        <select asp-for="Country" asp-items="@(new SelectList(new[] { "USA", "Canada", "UK" }))"></select>
+        <span asp-validation-for="Country"></span>
+    </div>
+
+    <div>
+        <label asp-for="State"></label>
+        <select asp-for="State" asp-items="@(new SelectList(new[] { "Select country first" }))"></select>
+        <span asp-validation-for="State"></span>
+    </div>
+
+    <div>
+        <label asp-for="City"></label>
+        <select asp-for="City" asp-items="@(new SelectList(new[] { "Select state first" }))"></select>
+        <span asp-validation-for="City"></span>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Simplified example: you can replace with AJAX calls for real cascading
+        var statesByCountry = {
+            "USA": ["California", "New York", "Texas"],
+            "Canada": ["Ontario", "Quebec", "British Columbia"],
+            "UK": ["England", "Scotland", "Wales"]
+        };
+
+        var citiesByState = {
+            "California": ["Los Angeles", "San Francisco", "San Diego"],
+            "New York": ["New York City", "Buffalo", "Rochester"],
+            "Texas": ["Houston", "Dallas", "Austin"],
+            "Ontario": ["Toronto", "Ottawa", "Hamilton"],
+            "Quebec": ["Montreal", "Quebec City", "Laval"],
+            "British Columbia": ["Vancouver", "Victoria", "Richmond"],
+            "England": ["London", "Manchester", "Liverpool"],
+            "Scotland": ["Edinburgh", "Glasgow", "Aberdeen"],
+            "Wales": ["Cardiff", "Swansea", "Newport"]
+        };
+
+        $('select[name="Country"]').change(function () {
+            var country = $(this).val();
+            var states = statesByCountry[country] || [];
+            var stateSelect = $('select[name="State"]');
+            stateSelect.empty();
+            $.each(states, function (i, state) {
+                stateSelect.append($('<option>').text(state).val(state));
+            });
+            stateSelect.trigger('change');
+        });
+
+        $('select[name="State"]').change(function () {
+            var state = $(this).val();
+            var cities = citiesByState[state] || [];
+            var citySelect = $('select[name="City"]');
+            citySelect.empty();
+            $.each(cities, function (i, city) {
+                citySelect.append($('<option>').text(city).val(city));
+            });
+        });
+
+        // Initialize dropdowns on page load
+        $('select[name="Country"]').trigger('change');
+    </script>
+}
