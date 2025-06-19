@@ -28,6 +28,10 @@ public class AccountController : Controller
         TempData["Step1Data"] = Newtonsoft.Json.JsonConvert.SerializeObject(model);
         return RedirectToAction(nameof(RegisterStep2));
     }
+   // Step 3: User Info
+    [HttpGet]
+    public IActionResult RegisterStep1() => View();
+
 
     // Step 2: Company + Password
     [HttpGet]
